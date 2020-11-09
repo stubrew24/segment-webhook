@@ -1,0 +1,7 @@
+{
+	"name": "segment-webhook",
+	"version": 2,
+	"env": {
+		"MONGODB_URI": "@mongodb-uri-production-x23r"
+	}
+}
