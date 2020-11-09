@@ -1,20 +1,4 @@
-const MongoClient = require("mongodb").MongoClient;
-const url = require("url");
-
-let cachedDb = null;
-
-async function connectToDatabase(uri) {
-	if (cachedDb) {
-		return cachedDb;
-	}
-
-	const client = await MongoClient.connect(process.env.MONGODB_URI, {
-		useNewUrlParser: true,
-	});
-	const db = await client.db(url.parse(uri).pathname.substr(1));
-	cachedDb = db;
-	return db;
-}
+const connectToDatabase = require("./dbConnect");
 
 module.exports = async (req, res) => {
 	const { type, properties, timestamp } = req.body;
@@ -50,5 +34,5 @@ module.exports = async (req, res) => {
 	const typeCollection = await db.collection(type);
 	await typeCollection.insertOne({ ...data });
 
-	res.status(200);
+	res.status(200).json({ body: "success" });
 };
