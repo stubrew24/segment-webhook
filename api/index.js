@@ -1,14 +1,15 @@
 const connectToDatabase = require("./dbConnect");
 
 module.exports = async (req, res) => {
-	const { type, timestamp, userId } = req.body;
-	let data = { timestamp, userId };
+	const { type, timestamp, anonymousId } = req.body;
+	let data = { timestamp, anonymousId };
 
 	switch (type) {
 		case "track":
 			{
 				const { event, properties } = req.body;
 				data.event = event;
+				data.properties = properties;
 			}
 			break;
 		case "page":
@@ -20,10 +21,9 @@ module.exports = async (req, res) => {
 			break;
 		case "identify":
 			{
-				const { userId, traits, properties } = req.body;
+				const { userId, traits } = req.body;
 				data.userId = userId;
 				data.traits = traits;
-				data.properties = properties;
 			}
 			break;
 	}
