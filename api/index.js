@@ -1,8 +1,8 @@
 const connectToDatabase = require("./dbConnect");
 
 module.exports = async (req, res) => {
-	const { type, timestamp } = req.body;
-	let data = { timestamp };
+	const { type, timestamp, userId } = req.body;
+	let data = { timestamp, userId };
 
 	switch (type) {
 		case "track":
